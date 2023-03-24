@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CryptoCurrency.Models.Responses
 {
-    internal class Rate
+    public class Rate
     {
         public string? id { get; set; }
         public string? symbol { get; set; }   

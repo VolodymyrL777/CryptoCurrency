@@ -8,6 +8,31 @@
         Title="Crypto currencies" Height="450" Width="800">
   
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.8*" />
+        </Grid.ColumnDefinitions>
+              
+        
+        <ListBox Grid.Column="0" ItemsSource="{Binding Currencies}"
+                 SelectedItem="{Binding SelectedCurrency}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="18" Text="{Binding Path=Name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
+        <StackPanel Grid.Column="1" DataContext="{Binding SelectedCurrency}">
+            <TextBlock FontSize="18" Text="Selected element"  />
+            <TextBlock FontSize="16" Text="Name" />
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock FontSize="16" Text="Symbol" />
+            <TextBox Text="{Binding Symbol, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock FontSize="16" Text="Price (USD)" />
+            <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
     </Grid>
 </Window>

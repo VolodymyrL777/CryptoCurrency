@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace CryptoCurrency.Models.Responses
 {
+    public class AssetList 
+    {
+        public List<Asset>? data { get; set; } 
+    }
+
     public class Asset
     {
         public string? id { get; set; }
