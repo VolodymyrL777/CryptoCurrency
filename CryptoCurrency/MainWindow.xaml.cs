@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.ApiClients;
 using CryptoCurrency.Models;
 using CryptoCurrency.Models.Responses;
+using CryptoCurrency.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,24 +28,58 @@ namespace CryptoCurrency
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += Window_Loaded;            
+        }
 
-            ObservableCollection<Currency> currencies = new ObservableCollection<Currency>();
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            CoinCapApiClient coinCap = new();
 
-            CoinCapApiClient coinCap = new CoinCapApiClient();
-            var data = coinCap.GetAssets();            
-            foreach (var item in data)
+            IEnumerable<Asset> items = await coinCap.GetAssetsAsync();
+
+            ObservableCollection<Currency> currencies = new();
+            foreach (Asset item in items.ToList().Take(10))
             {
-                Currency currency = new Currency {
-                    Name = item.name,
-                    Symbol = item.symbol,
-                    Price = item.priceUsd,
-                    PriceChange = item.changePercent24Hr,
-                    Volume = item.volumeUsd24hr
+                Currency currency = new()
+                {
+                    Name = item.Name ?? default,
+                    Symbol = item.Symbol ?? default,
+                    Price = item.PriceUsd ?? default ,
+                    PriceChange = item.ChangePercent24Hr ?? default ,
+                    Volume = item.VolumeUsd24hr ?? default,
+                    Url = item.Explorer ?? default
                 };
+
                 currencies.Add(currency);
-            }            
-            
-            DataContext = new CurrencyViewModel(currencies); 
+            }
+
+            DataContext = new CurrencyViewModel(currencies);
+        }
+
+        private void Btn_Info_Click(object sender, RoutedEventArgs e) 
+        {
+            Main.Content = new Info(DataContext);
+        }
+
+        private void Btn_Chart_Click(object sender, RoutedEventArgs e) 
+        {
+            Main.Content = new Chart(DataContext);
+        }
+
+        private void Btn_Converter_Click(object sender, RoutedEventArgs e) 
+        {
+            Main.Content = new Converter();
+        }
+
+        private void Btn_Top_Click(object sender, RoutedEventArgs e) 
+        {
+            Main.Content = new Top(DataContext);
+        }
+
+        private void Btn_Search_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new Search();
         }
     }
 }
+

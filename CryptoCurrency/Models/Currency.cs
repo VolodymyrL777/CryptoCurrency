@@ -11,11 +11,22 @@ namespace CryptoCurrency.Models
     public class Currency : INotifyPropertyChanged
     {
         private string name;
+        private string url;   
         private string symbol;   
         private string price;
         private string volume;
         private string priceChange;
-        private List<MarketPlace> markets;        
+        private List<MarketPlace> markets;
+
+        public string Url
+        {
+            get { return url; }
+            set
+            {
+                url = value;
+                OnPropertyChanged("Name");
+            }
+        }
 
         public string Name
         {

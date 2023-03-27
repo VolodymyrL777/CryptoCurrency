@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Interfaces;
 using CryptoCurrency.Models.Responses;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -16,40 +17,124 @@ namespace CryptoCurrency.ApiClients
     public class CoinCapApiClient : IApiClient
     {
         static readonly HttpClient client = new HttpClient();
-        private const string Url = "https://api.coincap.io/v2/";
+        private const string ApiUrl = "https://api.coincap.io/v2";
 
         public Task<IEnumerable<AssetHistory>> GetAssetHistory()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Asset> GetAssets()
+        public async Task<IEnumerable<Asset>> GetAssetsAsync(string id)
         {
-            AssetList assets = new AssetList();
-            string responseBody = String.Empty;
-            
-            try
+            if (String.IsNullOrWhiteSpace(id))
             {
-                var response = client.GetAsync(Url + "assets").Result; 
-                response.EnsureSuccessStatusCode();
-                responseBody = response.Content.ReadAsStringAsync().Result;                
-            }
-            catch (HttpRequestException e)
-            {
-                Console.WriteLine("\nException Caught!");
-                Console.WriteLine("Message :{0} ", e.Message);
+                return Enumerable.Empty<Asset>();
             }
 
+            HttpResponseMessage? httpResponseMessage;
             try
             {
-                assets = JsonSerializer.Deserialize<AssetList>(responseBody) ?? new AssetList();
+                httpResponseMessage = await client.GetAsync($"{ApiUrl}/assets/{id}");
             }
-            catch (SerializationException ex)
+            catch (Exception ex)
             {
-                Console.WriteLine("\nException Caught!");
-                Console.WriteLine("Message :{0} ", ex.Message);
+                Console.WriteLine($"[{DateTime.Now}] {ex}");
+                return Enumerable.Empty<Asset>();
             }
-            return assets.data ?? new List<Asset>();
+
+            if (httpResponseMessage is null)
+            {
+                return Enumerable.Empty<Asset>();
+            }
+
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                return Enumerable.Empty<Asset>();
+            }
+
+            string response;
+            try
+            {
+                response = await httpResponseMessage.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[{DateTime.Now}] {ex}");
+                return Enumerable.Empty<Asset>();
+            }
+
+            if (string.IsNullOrWhiteSpace(response))
+            {
+                return Enumerable.Empty<Asset>();
+            }
+
+            AssetData? assetData;
+            try
+            {
+                assetData = JsonSerializer.Deserialize<AssetData>(response);
+            }
+            catch (Exception ex)
+            {                
+                Console.WriteLine($"[{DateTime.Now}] {ex}");
+                return Enumerable.Empty<Asset>();
+            }
+
+            List<Asset> assetList = new List<Asset>();
+            assetList.Add(assetData?.Data);
+            return assetList ?? Enumerable.Empty<Asset>();
+        }
+
+        public async Task<IEnumerable<Asset>> GetAssetsAsync()
+        {
+            HttpResponseMessage? httpResponseMessage;
+            try
+            {
+                httpResponseMessage = await client.GetAsync($"{ApiUrl}/assets");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[{DateTime.Now}] {ex}");
+                return Enumerable.Empty<Asset>();
+            }
+
+            if (httpResponseMessage is null)
+            {
+                return Enumerable.Empty<Asset>();
+            }
+
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                return Enumerable.Empty<Asset>();
+            }
+
+            string response;
+            try
+            {
+                response = await httpResponseMessage.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[{DateTime.Now}] {ex}");
+                return Enumerable.Empty<Asset>();
+            }
+
+            if (string.IsNullOrWhiteSpace(response))
+            {
+                return Enumerable.Empty<Asset>();
+            }
+
+            AssetList? assets;
+            try
+            {
+                assets = JsonSerializer.Deserialize<AssetList>(response);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[{DateTime.Now}] {ex}");
+                return Enumerable.Empty<Asset>();
+            }
+
+            return assets?.Data ?? Enumerable.Empty<Asset>();
         }
 
         public Task<IEnumerable<Candle>> GetCandles()

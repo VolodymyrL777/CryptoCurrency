@@ -9,7 +9,8 @@ namespace CryptoCurrency.Interfaces
 {
     public interface IApiClient
     {
-        IEnumerable<Asset> GetAssets();
+        Task <IEnumerable<Asset>> GetAssetsAsync();
+        Task <IEnumerable<Asset>> GetAssetsAsync(string id);
         Task <IEnumerable<AssetHistory>> GetAssetHistory();
         Task <IEnumerable<Candle>> GetCandles();
         Task <IEnumerable<Exchange>> GetExchanges();
