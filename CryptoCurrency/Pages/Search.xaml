@@ -10,30 +10,36 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.5*" />
             <ColumnDefinition Width="0.8*" />
             <ColumnDefinition Width="*" />
             
         </Grid.ColumnDefinitions>
 
         <StackPanel  Grid.Column="0">
-            <TextBox x:Name="currency_id" Text="bitcoin"></TextBox>
+            <Label Content="Enter currency name:"/>
+            <TextBox  x:Name="currency_id" Text="bitcoin" />
             <Button Content="Search" Click="Search_Click"/>
         </StackPanel>
-        
-        <ListBox Grid.Column="1" ItemsSource="{Binding Currencies}"
+
+        <StackPanel Grid.Column="1">
+            <TextBlock FontSize="18" Text="Currency" HorizontalAlignment="Center"/>
+            <ListBox  ItemsSource="{Binding Currencies}"
                  SelectedItem="{Binding SelectedCurrency}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Margin="5">
-                        <TextBlock FontSize="18" Text="{Binding Path=Name}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock FontSize="16" Text="{Binding Path=Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        
 
         <StackPanel Grid.Column="2" DataContext="{Binding SelectedCurrency}">
-            <TextBlock FontSize="18" Text="Information"  />
+            <TextBlock FontSize="18" Text="Information" HorizontalAlignment="Center" />
             <TextBlock FontSize="16" Text="Name" />
             <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock FontSize="16" Text="Symbol" />
