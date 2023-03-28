@@ -1,5 +1,6 @@
 ﻿using CryptoCurrency.ApiClients;
 using CryptoCurrency.Models;
+using CryptoCurrency.Models.Responses;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,7 +27,7 @@ namespace CryptoCurrency.Pages
         public Top()
         {
             InitializeComponent();
-        }
+        }        
 
         public Top(object dataContext)
         {

@@ -27,6 +27,7 @@ namespace CryptoCurrency.Pages
         public Search()
         {
             InitializeComponent();
+            DataContext = null;
         }
 
         private async void Search_Click(object sender, RoutedEventArgs e)
