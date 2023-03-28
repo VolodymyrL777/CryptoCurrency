@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CryptoCurrency": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\wlad7\\Desktop\\Test_Tasks\\CryptoCurrency\\CryptoCurrency\\bin\\Debug\\net7.0-windows\\CryptoCurrency"
+    }
+  }
+}

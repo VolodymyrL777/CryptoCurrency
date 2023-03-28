@@ -1,41 +1,30 @@
-﻿using CryptoCurrency.ApiClients;
+﻿using CryptoCurrency.Interfaces;
 using CryptoCurrency.Models;
 using CryptoCurrency.Models.Responses;
 using CryptoCurrency.Pages;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CryptoCurrency
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly IApiClient _coinCapApi;
+
+        public MainWindow(IApiClient coinCapApi)
         {
             InitializeComponent();
+
+            _coinCapApi = coinCapApi;
+
             Loaded += Window_Loaded;            
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            CoinCapApiClient coinCap = new();
-
-            IEnumerable<Asset> items = await coinCap.GetAssetsAsync();
+        { 
+            IEnumerable<Asset> items = await _coinCapApi.GetAssetsAsync();
 
             ObservableCollection<Currency> currencies = new();
             foreach (Asset item in items.ToList().Take(10))
@@ -78,7 +67,7 @@ namespace CryptoCurrency
 
         private void Btn_Search_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new Search();
+            Main.Content = new Search(_coinCapApi);
         }
     }
 }

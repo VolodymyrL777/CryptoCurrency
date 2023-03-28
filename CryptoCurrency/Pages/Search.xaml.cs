@@ -1,40 +1,28 @@
-﻿using CryptoCurrency.ApiClients;
-using CryptoCurrency.Models.Responses;
+﻿using CryptoCurrency.Models.Responses;
 using CryptoCurrency.Models;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using CryptoCurrency.Interfaces;
 
 namespace CryptoCurrency.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для Search.xaml
-    /// </summary>
     public partial class Search : Page
     {
-        public Search()
+        private readonly IApiClient _coinCapApi;
+
+        public Search(IApiClient coinCapApi)
         {
             InitializeComponent();
+
+            _coinCapApi = coinCapApi;
             DataContext = null;
         }
 
         private async void Search_Click(object sender, RoutedEventArgs e)
-        {
-            CoinCapApiClient coinCap = new();
-
-            IEnumerable<Asset> items = await coinCap.GetAssetsAsync(currency_id.Text);
+        { 
+            IEnumerable<Asset> items = await _coinCapApi.GetAssetsAsync(currency_id.Text);
 
             ObservableCollection<Currency> currencies = new();
             foreach (Asset item in items)

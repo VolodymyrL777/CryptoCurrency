@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CryptoCurrency.Models
 {
     public class Currency : INotifyPropertyChanged
     {
-        private string name;
-        private string url;   
-        private string symbol;   
-        private string price;
-        private string volume;
-        private string priceChange;
-        private List<MarketPlace> markets;
+        private string? name;
+        private string? url;   
+        private string? symbol;   
+        private string? price;
+        private string? volume;
+        private string? priceChange;
+        private List<MarketPlace>? markets;
 
-        public string Url
+        public string? Url
         {
             get { return url; }
             set
@@ -28,7 +24,7 @@ namespace CryptoCurrency.Models
             }
         }
 
-        public string Name
+        public string? Name
         {
             get { return name; }
             set
@@ -38,7 +34,7 @@ namespace CryptoCurrency.Models
             }
         }
 
-        public string Symbol
+        public string? Symbol
         {
             get { return symbol; }
             set
@@ -48,7 +44,7 @@ namespace CryptoCurrency.Models
             }
         }
 
-        public string Price
+        public string? Price
         {
             get { return price; }
             set
@@ -58,7 +54,7 @@ namespace CryptoCurrency.Models
             }
         }
 
-        public string Volume
+        public string? Volume
         {
             get { return volume; }
             set
@@ -68,7 +64,7 @@ namespace CryptoCurrency.Models
             }
         }
 
-        public string PriceChange
+        public string? PriceChange
         {
             get { return priceChange; }
             set
@@ -78,7 +74,7 @@ namespace CryptoCurrency.Models
             }
         }
 
-        public List<MarketPlace> Markets
+        public List<MarketPlace>? Markets
         {
             get { return markets; }
             set

@@ -21,13 +21,8 @@
             <Button Content="Converter" Width="100" Click="Btn_Converter_Click" Visibility="Hidden"/>                       
         </StackPanel>
 
-        <Frame Grid.Row="1" x:Name="Main"/>
-            
+        <Frame Grid.Row="1" x:Name="Main"/>            
                             
-        </Grid>
-        
-
-       
-        
+        </Grid> 
 
 </Window>
