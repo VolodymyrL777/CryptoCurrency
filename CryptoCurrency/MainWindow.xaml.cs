@@ -57,7 +57,7 @@ namespace CryptoCurrency
 
         private void Btn_Converter_Click(object sender, RoutedEventArgs e) 
         {
-            Main.Content = new Converter();
+            Main.Content = new Converter(_coinCapApi);
         }
 
         private void Btn_Top_Click(object sender, RoutedEventArgs e) 

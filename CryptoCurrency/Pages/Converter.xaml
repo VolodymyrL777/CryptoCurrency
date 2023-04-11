@@ -9,6 +9,50 @@
       Title="Converter">
 
     <Grid>
-        <TextBlock Text="Converter" HorizontalAlignment="Center" FontSize="30" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>  
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*" />
+            <RowDefinition Height="0.1*" /> 
+            <RowDefinition Height="*" />             
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0"  Grid.Column="1">
+            <TextBlock Text="Converter" HorizontalAlignment="Center" FontSize="30" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"  Grid.Column="0">
+            <TextBox x:Name="Value" TextChanged="Currency_Convert" MaxLength="28" />
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2"  Grid.Column="0">
+            <TextBox x:Name="Result" IsReadOnly="True"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">                
+                <ComboBox x:Name="FirstCurrency"
+                      SelectionChanged="Currency_Convert"                      
+                      SelectedItem="{Binding SelectedCurrency}"
+                      SelectedValuePath="Price"
+                      DisplayMemberPath="Symbol"
+                      SelectedIndex="0">                   
+                </ComboBox>            
+            <TextBlock x:Name="first_value" FontSize="12" Visibility="Hidden"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <ComboBox x:Name="SecondCurrency"
+                      ItemsSource="{Binding currencies}" 
+                      SelectedValuePath="Price"
+                      SelectionChanged="Currency_Convert"
+                      DisplayMemberPath="Symbol"
+                      SelectedIndex="1">
+            </ComboBox>
+            <TextBlock x:Name="second_value" FontSize="12" Visibility="Hidden"/>
+        </StackPanel>         
     </Grid>
 </Page>

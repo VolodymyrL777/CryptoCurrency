@@ -17,8 +17,8 @@
             <Button Content="Top 10" Width="100" Click="Btn_Top_Click"/>
             <Button Content="Info" Width="100" Click="Btn_Info_Click"/>
             <Button Content="Search" Width="100" Click="Btn_Search_Click" />
-            <Button Content="Chart" Width="100" Click="Btn_Chart_Click" Visibility="Hidden"/>
-            <Button Content="Converter" Width="100" Click="Btn_Converter_Click" Visibility="Hidden"/>                       
+            <Button Content="Converter" Width="100" Click="Btn_Converter_Click" />
+            <Button Content="Chart" Width="100" Click="Btn_Chart_Click" Visibility="Hidden"/>                                
         </StackPanel>
 
         <Frame Grid.Row="1" x:Name="Main"/>            

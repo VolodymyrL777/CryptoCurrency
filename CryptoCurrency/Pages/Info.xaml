@@ -20,13 +20,13 @@
         <StackPanel Grid.Row="1" DataContext="{Binding SelectedCurrency}">
             <TextBlock FontSize="18" Text="Selected currency"  />
             <TextBlock FontSize="16" Text="Name" />
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
             <TextBlock FontSize="16" Text="Symbol" />
-            <TextBox Text="{Binding Symbol, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Symbol, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
             <TextBlock FontSize="16" Text="Price (USD)" />
-            <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
             <TextBlock FontSize="16" Text="Url" />
-            <TextBox Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
         </StackPanel>
 
     </Grid>
